@@ -58,16 +58,16 @@ You perform this step only the first time you run the server on your machine.
 To generate a migration file:
 
 ```
-mysql> python manage.py makemigrations followme
+> python manage.py makemigrations followme
 ```
 
 To generate the SQL script for the migration:
 
 ```
-mysql> python manage.py sqlmigrate followme 0001
+> python manage.py sqlmigrate followme 0001
 ```
 To execute generated SQL script against an existing database:
 
 ```
-mysql> python manage.py migrate
+> python manage.py migrate
 ```
