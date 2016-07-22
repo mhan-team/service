@@ -8,11 +8,13 @@ MAHN-team web site hosts the FollowMe application.
 
 * python 3.5.1
 * django 1.9.3
+* mysql 5.7.12
 
 ## Development Tools
 
 * Pycharm Community Edition
 * SourceTree
+* sqlworkbench 1.10.2
 
 ## How to run the server
 
@@ -32,5 +34,40 @@ Point your web browser to http://<IP address>:8000/followme
 
 Point your web browser to http://<IP address>:8000/admin
 
+## Intial database setup
 
+You perform this step only the first time you run the server on your machine.
 
+* Install mysql server and client
+* Set root password and create followme database
+
+    ```
+    > mysql
+    mysql> SET PASSWORD FOR 'root'@'localhost' = PASSWORD('!topsecret');
+    mysql> mysql -u root -p
+    mysql> create database followme;
+    ```
+* Get django to create the database tables.  From the mhan_service directory,
+
+```
+> python manage.py migrate
+```
+
+## Database migration after a change to the models
+
+To generate a migration file:
+
+```
+mysql> python manage.py makemigrations followme
+```
+
+To generate the SQL script for the migration:
+
+```
+mysql> python manage.py sqlmigrate followme 0001
+```
+To execute generated SQL script against an existing database:
+
+```
+mysql> python manage.py migrate
+```

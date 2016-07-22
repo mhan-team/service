@@ -22,5 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+class Trace(models.Model):
+    time = models.DateTimeField()
+    longitude = models.FloatField()
+    latitude = models.FloatField()
+
+
+class UserTrace(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    trace = models.ForeignKey(Trace, on_delete=models.CASCADE)
