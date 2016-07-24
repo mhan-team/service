@@ -34,7 +34,7 @@ Point your web browser to http://<IP address>:8000/followme
 
 Point your web browser to http://<IP address>:8000/admin
 
-## Intial database setup
+## Initial database setup
 
 You perform this step only the first time you run the server on your machine.
 
@@ -53,7 +53,7 @@ You perform this step only the first time you run the server on your machine.
 > python manage.py migrate
 ```
 
-## Database migration after a change to the models
+## Database migration after initial setup or after a change to the models
 
 To generate a migration file:
 
@@ -71,3 +71,12 @@ To execute generated SQL script against an existing database:
 ```
 > python manage.py migrate
 ```
+
+## Re-initialize the database when it already exists
+
+```
+mysql> drop database followme;
+mysql> create database followme;
+```
+
+Then continue with database migration described in previous section

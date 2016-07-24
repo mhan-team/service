@@ -26,11 +26,19 @@ from django.contrib.auth.models import User
 
 
 class Trace(models.Model):
+    name = models.CharField(max_length=64)
+    created_on = models.DateTimeField()
+    created_by = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'Trace {self.name} created on {self.created_on}'.formal(self.self)
+
+
+class Point(models.Model):
     time = models.DateTimeField()
     longitude = models.FloatField()
     latitude = models.FloatField()
-
-
-class UserTrace(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     trace = models.ForeignKey(Trace, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{self.time}: {self.latitude}, {self.longitude}'.format(self=self)
