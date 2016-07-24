@@ -77,6 +77,7 @@ To execute generated SQL script against an existing database:
 ```
 mysql> drop database followme;
 mysql> create database followme;
+> rm followme/migrations/*_initial.py
 ```
 
 Then continue with database migration described in previous section
