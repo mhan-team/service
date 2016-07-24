@@ -31,7 +31,7 @@ class Trace(models.Model):
     created_by = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Trace {self.name} created on {self.created_on}'.formal(self.self)
+        return 'Trace {self.name} created on {self.created_on}'.format(self=self)
 
 
 class Point(models.Model):

@@ -22,5 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from django.contrib import admin
+from .models import Trace, Point
 
 # Register your models here.
+
+admin.site.register(Trace)
+admin.site.register(Point)

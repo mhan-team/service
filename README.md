@@ -81,3 +81,14 @@ mysql> create database followme;
 ```
 
 Then continue with database migration described in previous section
+
+## Creating an admin user
+
+```
+> python manage.py createsuperuser
+User: admin
+Email address: <email>
+Password
+> python manage.py runserver <IP address>:<port>
+```
+Point your web browser to http://<IP address>:8000/admin
