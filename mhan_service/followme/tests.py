@@ -21,6 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from django.test import TestCase
+from django.test import TestCase, Client
 
-# Create your tests here.
+
+class TestTrace(TestCase):
+
+    def test_trace_query(self):
+        response = self.client.get('/followme/')
+        print(response)
+        assert(response.status_code == 200)

@@ -22,9 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from django.shortcuts import render
+from .models import Trace, Point
 
 from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. This is the FollowMe application by mhan-team.")
+    trace_list = Trace.objects.order_by('created_on')
+    output = ', '.join([t.name for t in trace_list])
+    return HttpResponse(output)
+
