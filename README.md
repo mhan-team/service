@@ -7,6 +7,7 @@ MAHN-team web site hosts the FollowMe application.
 ## Requirements
 
 * python 3.5.1
+* djangorestframework 3.4.0
 * django 1.9.3
 * mysql 5.7.12
 
@@ -88,7 +89,31 @@ Then continue with database migration described in previous section
 > python manage.py createsuperuser
 User: admin
 Email address: <email>
-Password
+Password:
 > python manage.py runserver <IP address>:<port>
 ```
 Point your web browser to http://<IP address>:8000/admin
+
+## REST API
+
+```
+http://127.0.0.1:8000/followme/users/
+http://127.0.0.1:8000/followme/groups/
+http://127.0.0.1:8000/followme/traces/
+http://127.0.0.1:8000/followme/points/
+```
+
+# Listing all users with curl
+
+```
+> curl -H 'Accept: application/json; indent=4' -u admin:\!topsecret http://127.0.0.1:8000/followme/users/
+```
+
+# Creating a User with curl
+
+```
+ > curl -i -H "Accept: application/json" -H "Content-Type:application/json" -u admin:\!topsecret  -X POST --data
+ '{"username":"joe","email":"joe@bloe.com"}' http://127.0.0.1:8000/followme/users/
+```
+
+Note: listing and creating work the same for groups, traces and points but with their respective fields

@@ -21,14 +21,51 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from django.shortcuts import render
 from .models import Trace, Point
 
 from django.http import HttpResponse
 
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from .serializers import UserSerializer, GroupSerializer, TraceSerializer, PointSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+
+class TraceViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows traces to be viewed or edited.
+    """
+    queryset = Trace.objects.all().order_by('-created_on')
+    serializer_class = TraceSerializer
+
+
+class PointViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows trace points to be viewed or edited.
+    """
+    queryset = Point.objects.all().order_by('-time')
+    serializer_class = PointSerializer
+
 
 def index(request):
     trace_list = Trace.objects.order_by('created_on')
-    output = ', '.join([t.name for t in trace_list])
+    if len(trace_list):
+        output = ', '.join([t.name for t in trace_list])
+    else:
+        output = 'Followme has no trace'
     return HttpResponse(output)
-

@@ -21,21 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
-from django.conf.urls import url, include
-from rest_framework import routers
-from . import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'traces', views.TraceViewSet)
-router.register(r'points', views.PointViewSet)
+from django.contrib.auth.models import User, Group
+from rest_framework import serializers
+from .models import Trace, Point
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-]
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ('url', 'username', 'email', 'groups')
+
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('url', 'name')
+
+
+class TraceSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Trace
+        fields = ('name', 'created_on', 'created_by')
+
+
+class PointSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Point
+        fields = ('time', 'longitude', 'latitude', 'trace')
